@@ -2,12 +2,13 @@
 Globals file for zsnapd
 """
 
+import os
 from magcode.core.globals_ import settings
 
 # settings for where files are
 settings['config_dir'] = '/etc/zsnapd'
 settings['log_dir'] = '/var/log'
-settings['run_dir'] = '/run'
+settings['run_dir'] = '/run' + f'/user/{os.getuid()}' if os.getuid() != 0 else ''
 settings['config_file'] = settings['config_dir'] + '/' + 'zsnapd-rcmd.conf'
 
 #settings['log_file'] = settings['log_dir'] \

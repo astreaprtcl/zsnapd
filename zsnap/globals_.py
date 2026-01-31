@@ -2,6 +2,7 @@
 Globals file for zsnapd
 """
 
+import os
 from magcode.core.globals_ import settings
 
 # Constants for use in program
@@ -14,7 +15,7 @@ DEFAULT_BUFFER_SIZE = '512M'
 # settings for where files are
 settings['config_dir'] = '/etc/zsnapd'
 settings['log_dir'] = '/var/log/zsnapd'
-settings['run_dir'] = '/run'
+settings['run_dir'] = '/run' + f'/user/{os.getuid()}' if os.getuid() != 0 else ''
 settings['config_file'] = settings['config_dir'] + '/' + 'process.conf'
 # Zsnapd only uses one daemon
 settings['pid_file'] = settings['run_dir'] + '/' + 'zsnapd.pid'
